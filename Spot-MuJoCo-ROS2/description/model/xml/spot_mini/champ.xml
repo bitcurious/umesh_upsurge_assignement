@@ -1,0 +1,163 @@
+<mujoco>
+  <option timestep="0.001" gravity="0 0 -9.81"/>
+  <compiler angle="radian" meshdir="../meshes" autolimits="true"/>
+
+  <asset>
+    <!-- Meshes -->
+    <mesh name="base_simple" file="/home/umesh/spot_mujoco/src/champ_description/share/champ_description/meshes/base_simple.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="hokuyo" file="/home/umesh/spot_mujoco/src/champ_description/share/champ_description/meshes/hokuyo_utm_30lx.dae"/>
+    <mesh name="asus_camera" file="/home/umesh/spot_mujoco/src/champ_description/share/champ_description/meshes/asus_camera_simple.dae"/>
+    <mesh name="hip" file="/home/umesh/spot_mujoco/src/champ/champ_description/meshes/hip.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="upper_leg" file="/home/umesh/spot_mujoco/src/champ/champ_description/meshes/upper_leg_simple.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="lower_leg" file="/home/umesh/spot_mujoco/src/champ/champ_description/meshes/lower_leg_simple.stl" scale="0.001 0.001 0.001"/>
+
+    <!-- Materials -->
+    <material name="black" rgba="0.15 0.15 0.15 1.0"/>
+  </asset>
+
+  <worldbody>
+    <!-- Ground -->
+    <geom name="ground" type="plane" size="10 10 0.1" pos="0 0 0" rgba="0.8 0.8 0.8 1"/>
+
+    <!-- Base Link -->
+    <body name="base_link" pos="0 0 0.3">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2.0" diaginertia="0.016833 0.044483 0.055683"/>
+      <geom name="base_geom" type="mesh" mesh="base_simple" material="black" solimp="0.9 0.95 0.001" solref="0.02 1"/>
+
+      <!-- Hokuyo Sensor -->
+      <body name="hokuyo_frame" pos="0.0 0.0 0.105">
+        <inertial mass="0.270" diaginertia="2.632e-4 2.632e-4 1.62e-4"/>
+        <geom type="mesh" mesh="hokuyo" material="black"/>
+      </body>
+
+      <!-- Camera -->
+      <body name="camera_link" pos="0.25 0.0 -0.075">
+        <inertial mass="0.200" diaginertia="5.8083e-4 3.0833e-5 5.9083e-4"/>
+        <geom type="mesh" mesh="asus_camera" material="black"/>
+      </body>
+
+      <!-- IMU -->
+      <body name="imu_link">
+        <inertial mass="0.001" diaginertia="1e-9 1e-9 1e-9"/>
+      </body>
+
+      <!-- Left Front Leg -->
+      <body name="lf_hip_link" pos="0.175 0.105 0">
+        <joint name="lf_hip_joint" type="hinge" axis="1 0 0" range="-3.14 3.14" damping="0.1"/>
+        <inertial mass="0.25" diaginertia="0.000485 0.000613 0.000395"/>
+        <geom type="mesh" mesh="hip" material="black"/>
+
+        <body name="lf_upper_leg_link" pos="0 0.06 0">
+          <joint name="lf_upper_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+          <inertial mass="0.125" pos="0 0 -0.0705" diaginertia="0.000387 0.000404 3.54e-5"/>
+          <geom type="mesh" mesh="upper_leg" material="black"/>
+
+          <body name="lf_lower_leg_link" pos="0 0 -0.141">
+            <joint name="lf_lower_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+            <inertial mass="0.125" pos="0 0 -0.063" diaginertia="0.000259 0.000269 2.09e-5"/>
+            <geom type="mesh" mesh="lower_leg" material="black"/>
+
+            <body name="lf_foot_link" pos="0.00325 0 -0.141">
+              <geom name="lf_foot_geom" type="sphere" size="0.02" pos="0 0 0" contype="1" conaffinity="1" solimp="0.9 0.95 0.001" solref="0.02 1" rgba="0.3 0.3 0.3 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <!-- Left Hind Leg (mirror of LF) -->
+      <body name="lh_hip_link" pos="-0.175 0.105 0">
+        <joint name="lh_hip_joint" type="hinge" axis="1 0 0" range="-3.14 3.14" damping="0.1"/>
+        <inertial mass="0.25" diaginertia="0.000485 0.000613 0.000395"/>
+        <geom type="mesh" mesh="hip" material="black"/>
+
+        <body name="lh_upper_leg_link" pos="0 0.06 0">
+          <joint name="lh_upper_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+          <inertial mass="0.125" pos="0 0 -0.0705" diaginertia="0.000387 0.000404 3.54e-5"/>
+          <geom type="mesh" mesh="upper_leg" material="black"/>
+
+          <body name="lh_lower_leg_link" pos="0 0 -0.141">
+            <joint name="lh_lower_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+            <inertial mass="0.125" pos="0 0 -0.063" diaginertia="0.000259 0.000269 2.09e-5"/>
+            <geom type="mesh" mesh="lower_leg" material="black"/>
+
+            <body name="lh_foot_link" pos="0.00325 0 -0.141">
+              <geom name="lh_foot_geom" type="sphere" size="0.02" pos="0 0 0" contype="1" conaffinity="1" solimp="0.9 0.95 0.001" solref="0.02 1" rgba="0.3 0.3 0.3 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <!-- Right Front Leg (mirror of LF) -->
+      <body name="rf_hip_link" pos="0.175 -0.105 0">
+        <joint name="rf_hip_joint" type="hinge" axis="1 0 0" range="-3.14 3.14" damping="0.1"/>
+        <inertial mass="0.25" diaginertia="0.000485 0.000613 0.000395"/>
+        <geom type="mesh" mesh="hip" material="black"/>
+
+        <body name="rf_upper_leg_link" pos="0 -0.06 0">
+          <joint name="rf_upper_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+          <inertial mass="0.125" pos="0 0 -0.0705" diaginertia="0.000387 0.000404 3.54e-5"/>
+          <geom type="mesh" mesh="upper_leg" material="black"/>
+
+          <body name="rf_lower_leg_link" pos="0 0 -0.141">
+            <joint name="rf_lower_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+            <inertial mass="0.125" pos="0 0 -0.063" diaginertia="0.000259 0.000269 2.09e-5"/>
+            <geom type="mesh" mesh="lower_leg" material="black"/>
+
+            <body name="rf_foot_link" pos="0.00325 0 -0.141">
+              <geom name="rf_foot_geom" type="sphere" size="0.02" pos="0 0 0" contype="1" conaffinity="1" solimp="0.9 0.95 0.001" solref="0.02 1" rgba="0.3 0.3 0.3 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <!-- Right Hind Leg (mirror of LF) -->
+      <body name="rh_hip_link" pos="-0.175 -0.105 0">
+        <joint name="rh_hip_joint" type="hinge" axis="1 0 0" range="-3.14 3.14" damping="0.1"/>
+        <inertial mass="0.25" diaginertia="0.000485 0.000613 0.000395"/>
+        <geom type="mesh" mesh="hip" material="black"/>
+
+        <body name="rh_upper_leg_link" pos="0 -0.06 0">
+          <joint name="rh_upper_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+          <inertial mass="0.125" pos="0 0 -0.0705" diaginertia="0.000387 0.000404 3.54e-5"/>
+          <geom type="mesh" mesh="upper_leg" material="black"/>
+
+          <body name="rh_lower_leg_link" pos="0 0 -0.141">
+            <joint name="rh_lower_leg_joint" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="0.1"/>
+            <inertial mass="0.125" pos="0 0 -0.063" diaginertia="0.000259 0.000269 2.09e-5"/>
+            <geom type="mesh" mesh="lower_leg" material="black"/>
+
+            <body name="rh_foot_link" pos="0.00325 0 -0.141">
+              <geom name="rh_foot_geom" type="sphere" size="0.02" pos="0 0 0" contype="1" conaffinity="1" solimp="0.9 0.95 0.001" solref="0.02 1" rgba="0.3 0.3 0.3 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <!-- Actuators for all joints (position/velocity/effort control) -->
+    <motor name="lf_hip_motor" joint="lf_hip_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="lf_upper_leg_motor" joint="lf_upper_leg_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="lf_lower_leg_motor" joint="lf_lower_leg_joint" gear="1" ctrlrange="-25 25"/>
+
+    <motor name="lh_hip_motor" joint="lh_hip_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="lh_upper_leg_motor" joint="lh_upper_leg_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="lh_lower_leg_motor" joint="lh_lower_leg_joint" gear="1" ctrlrange="-25 25"/>
+
+    <motor name="rf_hip_motor" joint="rf_hip_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="rf_upper_leg_motor" joint="rf_upper_leg_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="rf_lower_leg_motor" joint="rf_lower_leg_joint" gear="1" ctrlrange="-25 25"/>
+
+    <motor name="rh_hip_motor" joint="rh_hip_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="rh_upper_leg_motor" joint="rh_upper_leg_joint" gear="1" ctrlrange="-25 25"/>
+    <motor name="rh_lower_leg_motor" joint="rh_lower_leg_joint" gear="1" ctrlrange="-25 25"/>
+  </actuator>
+
+  <sensor>
+    <!-- Example IMU sensor (attached to base_link) -->
+    <gyro name="imu_gyro" site="imu_link"/>
+    <accelerometer name="imu_accel" site="imu_link"/>
+  </sensor>
+</mujoco>

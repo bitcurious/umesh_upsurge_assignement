@@ -1,0 +1,16 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/umesh/spot_mujoco/install/communication/local/lib/python3.10/dist-packages",
+        "/home/umesh/spot_mujoco/install/champ_bringup/local/lib/python3.10/dist-packages",
+        "/home/umesh/spot_mujoco/install/champ_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/umesh/spot_mujoco/install/communication/local/lib/python3.10/dist-packages",
+        "/home/umesh/spot_mujoco/install/champ_bringup/local/lib/python3.10/dist-packages",
+        "/home/umesh/spot_mujoco/install/champ_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

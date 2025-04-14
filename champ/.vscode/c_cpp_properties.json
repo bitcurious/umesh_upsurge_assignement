@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/umesh/spot_mujoco/install/core/include/**",
+        "/home/umesh/spot_mujoco/install/communication/include/**",
+        "/home/umesh/spot_mujoco/install/champ_msgs/include/**",
+        "/home/umesh/spot_mujoco/install/champ/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/umesh/spot_mujoco/src/Spot-MuJoCo-ROS2/core/include/**",
+        "/home/umesh/spot_mujoco/src/Spot-MuJoCo-ROS2/simulation/mujoco/include/**",
+        "/home/umesh/spot_mujoco/src/champ/champ/include/**",
+        "/home/umesh/spot_mujoco/src/champ/champ_base/include/**",
+        "/home/umesh/spot_mujoco/src/champ/champ_config/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
